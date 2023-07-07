@@ -1,0 +1,53 @@
+{
+  "_from": "github:ckeditor/ckeditor4-releases#full/latest",
+  "_id": "ckeditor4@4.14.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/ckeditor4",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "github:ckeditor/ckeditor4-releases#full/latest",
+    "rawSpec": "github:ckeditor/ckeditor4-releases#full/latest",
+    "saveSpec": "github:ckeditor/ckeditor4-releases#full/latest",
+    "fetchSpec": null,
+    "gitCommittish": "full/latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "github:ckeditor/ckeditor4-releases#fc96f503d42a3a812fcea61e374ec9d2ef77a115",
+  "_spec": "github:ckeditor/ckeditor4-releases#full/latest",
+  "_where": "/var/www/html/fishho.ir",
+  "author": {
+    "name": "CKSource",
+    "url": "https://cksource.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/ckeditor/ckeditor4/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "JavaScript WYSIWYG web text editor.",
+  "homepage": "https://ckeditor.com/ckeditor-4/",
+  "keywords": [
+    "ckeditor4",
+    "ckeditor",
+    "fckeditor",
+    "editor",
+    "wysiwyg",
+    "html",
+    "richtext",
+    "text",
+    "javascript"
+  ],
+  "license": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+  "main": "ckeditor.js",
+  "name": "ckeditor4",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckeditor/ckeditor4-releases.git"
+  },
+  "version": "4.14.1"
+}

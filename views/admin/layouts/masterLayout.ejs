@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+
+<head>
+
+    <%- include("head-tag")  %> 
+    @yield('head-tag')
+
+</head>
+
+<body class="rtl app sidebar-mini">
+
+
+	<!-- PAGE -->
+	<div class="page">
+		<div class="page-main">
+
+
+            <%- include("header")  %> 
+            
+            <%- include("sidebar")  %> 
+
+
+            @yield('content')
+
+		</div>
+
+
+     
+
+	</div>
+
+	<!-- BACK-TO-TOP -->
+	<a href="#top" id="back-to-top"><i class="fa fa-long-arrow-up"></i></a>
+
+    <%- include("script")  %> 
+    
+    @yield('script')
+
+
+</body>
+
+</html>
