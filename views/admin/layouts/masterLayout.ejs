@@ -21,7 +21,7 @@
             <%- include("sidebar")  %> 
 
 
-            @yield('content')
+            <%-body %> 
 
 		</div>
 
@@ -35,7 +35,23 @@
 
     <%- include("script")  %> 
     
-    @yield('script')
+
+
+
+    <% let sweetalert = req.flash('sweetalert')
+    if(sweetalert.length) {
+      let data = sweetalert[0]; %>
+      <script>
+        Swal.fire({
+          title: '<%= data.title %>',
+          text: '<%= data.message %>',
+          icon: '<%= data.icon %>',
+          showConfirmButton: <%= data.button !== null ? true : false %>,
+          confirmButtonText: '<%= data.button %>',
+          timer : <%= data.timer !== null ? data.timer : 'null' %>,
+        })
+      </script>
+<% } %>
 
 
 </body>

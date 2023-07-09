@@ -4,11 +4,11 @@ class adminController extends controller {
 
 
     async index(req , res) {
-        console.log('you are at index now');
 
-        res.render("home",{pageTitle:"صفحه اصلی"})
+        res.render("admin/home",{pageTitle:"صفحه اصلی"})
 
     }
+
 
 
 }

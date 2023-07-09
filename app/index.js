@@ -3,6 +3,11 @@ const app = express();
 const expressEjsLayouts = require("express-ejs-layouts");
 const http = require('http');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const Helpers =  require('app/helpers');
+
 
 
 module.exports = class Application {
@@ -20,6 +25,27 @@ module.exports = class Application {
     }
 
     setConfig(){
+
+        //bodyParser
+        app.use(express.urlencoded({extended:false}));
+        app.use(express.json());
+
+        app.use(session({
+            name : 'session_roocket',
+            secret : process.env.SESSION_SECRETKEY,
+            resave : true,
+            saveUninitialized : true,
+            cookie : {  expires : new Date(Date.now() + 1000 * 60 * 60 * 6)},
+        }));
+        app.use(cookieParser(process.env.COOKIE_SECRETKEY));
+        app.use(flash());
+        
+
+        app.use((req , res , next) => {
+            app.locals = new Helpers(req, res).getObjects();
+            next();
+        });
+
 
     }
 
@@ -44,7 +70,7 @@ module.exports = class Application {
     }
 
     setRouters(){
-        app.use(require('routes/admin'));
+        app.use('/admin',require('routes/admin'));
     }
 
 }
