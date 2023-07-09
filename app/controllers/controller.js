@@ -1,4 +1,5 @@
 const autoBind = require('auto-bind');
+const isMongoId = require('validator/lib/isMongoId');
 
 module.exports = class controller {
 
@@ -25,6 +26,10 @@ module.exports = class controller {
         return true;
     }
 
+    isMongoId(paramId) {
+        if(! isMongoId(paramId))
+            this.error('ای دی وارد شده صحیح نیست', 404);
+    }
 
     back(req , res) {
         req.flash('formData' , req.body);

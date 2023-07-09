@@ -1,3 +1,6 @@
+<%- contentFor('headtag') %>
+
+<%- contentFor('body') %>
 			<!--app-content open-->
 			<div class="app-content main-content mt-0">
 				<div class="side-app">
@@ -76,8 +79,7 @@
                                                                 </a>
 															</div>
 															<div>
-																<form id="deleteCategory" action="{{route('admin.categories.destroy',['category'=>$category->id])}}" method="post">
-																	
+																<form id="deleteCategory" action="/admin/categories/<%= category.id %>?_method=DELETE" method="post">																	
 																	<button class="btn btn-danger fs-14 text-white delete" title="حذف" type="submit"><i class="fa fa-trash"></i></button>
 																
 																</form>
@@ -105,3 +107,17 @@
 						</div>
 
 						</div>
+
+						
+						<%- contentFor('script') %>
+						<script>
+							var className = 'delete';
+						</script>
+						<!-- ,{pageTitle:"ساخت دسته بندی جدید"} -->
+						<%-  include(viewPath('admin/layouts/delete-confirm') ,{className:"delete"}) -%>
+
+
+
+						
+
+

@@ -21,9 +21,11 @@
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.15.6",
     "express-validator": "^7.0.1",
+    "method-override": "^3.0.0",
     "mongoose": "^7.3.1",
     "mongoose-paginate": "^5.0.3",
     "sweetalert2": "^11.7.12",
+    "validator": "^13.9.0",
     "yup": "^1.2.0"
   }
 }

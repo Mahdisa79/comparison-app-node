@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const Helpers =  require('app/helpers');
+const methodOverride = require('method-override');
 
 
 
@@ -29,6 +30,8 @@ module.exports = class Application {
         //bodyParser
         app.use(express.urlencoded({extended:false}));
         app.use(express.json());
+        app.use(methodOverride('_method'));
+
 
         app.use(session({
             name : 'session_roocket',

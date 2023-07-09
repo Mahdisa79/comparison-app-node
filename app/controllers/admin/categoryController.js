@@ -99,6 +99,26 @@ class categoryController extends controller {
         }
     }
 
+
+
+
+    async destroy(req , res , next) {
+      try {
+          this.isMongoId(req.params.id);
+
+          let category = await Category.findById(req.params.id);
+          if( ! category ) this.error('چنین دسته ای وجود ندارد' , 404);
+
+
+          // delete category
+          await category.deleteOne();
+
+          return res.redirect('/admin/categories');
+      } catch (err) {
+          next(err);
+      }
+  }
+
 }
 
 
