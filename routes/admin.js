@@ -19,8 +19,8 @@ router.get( "/",adminController.index);
 router.get('/categories' , categoryController.index);
 router.get('/categories/create' , categoryController.create);
 router.post('/categories/store' , categoryController.store );
-// router.get('/categories/:id/edit' , categoryController.edit);
-// router.put('/categories/:id' , categoryValidator.handle() , categoryController.update );
+router.get('/categories/:id/edit' , categoryController.edit);
+router.put('/categories/:id' , categoryController.update );
 router.delete('/categories/:id' , categoryController.destroy);
 
 

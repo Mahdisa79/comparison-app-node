@@ -1,6 +1,6 @@
-<%- contentFor('headtag') %>
+ <%- contentFor('headtag') %>
 
-<%- contentFor('body') %>
+ <%- contentFor('body') %>
 
       <!--app-content open-->
 			<div class="app-content main-content mt-0">
@@ -31,7 +31,7 @@
                   </div>
                   <!-- /.card-header -->
                   <!-- form start -->
-                  <form   method="post" action="/admin/categories/store">
+                  <form   method="post" action="/admin/categories/<%= category.id %>?_method=put">
 
                     <%- include(viewPath('admin/layouts/error-messages')) -%>
 
@@ -42,7 +42,7 @@
                       
                       <div class="form-group">
                         <label for="">نام دسته بندی(فارسی)</label>
-                        <input type="text" name="persian_name" class="form-control mb-2" value="<%= old('persian_name') %>"  placeholder="">
+                        <input type="text" name="persian_name" class="form-control mb-2" value="<%= old('persian_name',category.persian_name) %>"  placeholder="">
                       
       
 
@@ -54,7 +54,7 @@
                       
                       <div class="form-group">
                         <label for="">نام دسته بندی(اینگلیسی)</label>
-                        <input type="text" name="original_name" class="form-control mb-2" value="<%= old('original_name') %>"   placeholder="">
+                        <input type="text" name="original_name" class="form-control mb-2" value="<%= old('original_name',category.original_name) %>"   placeholder="">
                       
 
                         <!-- <span class="alert_required bg-danger text-white p-1 mt-2 " role="alert">
@@ -70,7 +70,7 @@
                       
                       <div class="form-group">
                         <label for="">اسلاگ</label>
-                        <input type="text" name="slug" class="form-control mb-2" value="<%= old('slug') %>"  placeholder="">
+                        <input type="text" name="slug" class="form-control mb-2" value="<%= old('slug',category.slug) %>"  placeholder="">
                       
 
                         <!-- <span class="alert_required bg-danger text-white p-1 mt-2 " role="alert">
@@ -87,8 +87,8 @@
                       <div class="form-group">
                           <label for="status">وضعیت</label>
                           <select name="status" id="" class="form-control form-select mb-2" id="status">
-                              <option value="0" <%= String(old('status')) == "0" ? 'selected' : '' %>  >غیرفعال</option>
-                              <option value="1" <%= String(old('status')) == "1" ? 'selected' : '' %> >فعال</option>
+                              <option value="0" <%= String(old('status',category.status)) == "0" ? 'selected' : '' %>  >غیرفعال</option>
+                              <option value="1" <%= String(old('status',category.status)) == "1" ? 'selected' : '' %> >فعال</option>
                           </select>
                       </div>
                       <!-- <span class="alert_required bg-danger text-white p-1 " role="alert">
@@ -120,4 +120,4 @@
 			</div>
 			<!-- CONTAINER END -->
 
-<%- contentFor('script') %>
+      <%- contentFor('script') %>

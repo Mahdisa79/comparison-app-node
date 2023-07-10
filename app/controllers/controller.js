@@ -60,9 +60,11 @@ module.exports = class controller {
             message = data.message || '',
             icon = data.icon || 'info',
             button = data.button || null,
-            timer = data.timer || null;
+            timer = data.timer || null,
+            used = 0;
 
-        req.flash('sweetalert' , { title , message , icon , button , timer});
+
+        req.flash('sweetalert' , { title , message , icon , button , timer,used});
         
     }
 
