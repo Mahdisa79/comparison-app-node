@@ -1,5 +1,7 @@
 const autoBind = require('auto-bind');
 const isMongoId = require('validator/lib/isMongoId');
+const path = require('path');
+const sharp = require('sharp');
 
 module.exports = class controller {
 
@@ -73,5 +75,29 @@ module.exports = class controller {
         this.back(req , res);
     }
 
+    imageResize(image) {
+        const imageInfo = path.parse(image.path);
+        
+        let addresImages = {};
+        addresImages['original'] = this.getUrlImage(`${image.destination}/${image.filename}`);
+
+        const resize = size => {
+            let imageName = `${imageInfo.name}-${size}${imageInfo.ext}`;
+            
+            addresImages[size] = this.getUrlImage(`${image.destination}/${imageName}`);
+            
+            sharp(image.path)
+                .resize(size , null) 
+                .toFile(`${image.destination}/${imageName}`);
+        }
+
+        [1080 , 720 , 480].map(resize);
+
+        return addresImages;
+    }
+
+    getUrlImage(dir) {
+        return dir.substring(8);
+    }
 
 };

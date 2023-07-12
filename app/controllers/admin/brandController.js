@@ -1,18 +1,16 @@
 const controller = require('app/controllers/controller');
-const Category = require("models/category");
+const Brand = require("models/brand");
 
-class categoryController extends controller {
+class brandController extends controller {
 
 
     async index(req , res) {
 
-        // res.render("admin/categories/index",{pageTitle:"دسته بندی ها"})
-
         try {
-            let categories = await Category.find({});
+            // let categories = await Category.find({});
 
 
-            res.render('admin/categories/index',  { pageTitle : 'دسته بندی ها' , categories });
+            res.render('admin/brands/index',  { pageTitle : 'برند ها'  });
         } catch (err) {
             next(err);
         }
@@ -21,7 +19,7 @@ class categoryController extends controller {
 
     async create(req , res) {
         
-        res.render("admin/categories/create",{pageTitle:"ساخت دسته بندی جدید"})
+        res.render("admin/brands/create",{pageTitle:"ساخت برند جدید"})
 
     }
 
@@ -30,54 +28,32 @@ class categoryController extends controller {
         const errorArr = [];
 
         try {
-            await Category.categoryValidation(req.body);
-            let { persian_name, original_name, slug ,status } = req.body;
+            req.body.logo = req.body.image;
 
-            slug = this.persianSlug(slug)
-
-            // console.log(persianSlug);
-            // slug = persianSlug.persianSlug(slug)
+            await Brand.brandValidation(req.body);
+            let { persian_name, original_name, logo ,status } = req.body;
             
 
+             // create brand
+            logo.path= this.imageResize(req.file);
 
+            console.log(logo);
 
-            const category = await Category.findOne({slug});
-
-            if(category){
-             
-                errorArr.push({
-                  name: "اسلاگ تکراری",
-                  message: "اسلاگ تکراری وارد کرده اید",
-                });
-           
-          
-              this.alert(req, {
-                title: "خطا",
-                message: errorArr[0].message,
-                icon: "error",
-                button: "تایید",
-              });
-          
-              return res.redirect("/admin/categories/create");
-            //  return;
-            }
-
-
-            await Category.create({
+            await Brand.create({
                 persian_name,
                 original_name,
-                slug,
+                logo,
                 status
               });
 
               this.alert(req, {
                 title: "موفقیت آمیز",
-                message: "دسته بندی شما با موفقیت ایجاد شد" ,
+                message: "برند شما با موفقیت ایجاد شد" ,
                 icon: "success",
                 button: "تایید",
               });
 
-            res.redirect('/admin/categories'); 
+            res.redirect('/admin/brands'); 
             return ;
            
         } catch(err) {
@@ -204,4 +180,4 @@ class categoryController extends controller {
 
 
 
-module.exports = new categoryController();
+module.exports = new brandController();

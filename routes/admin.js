@@ -4,6 +4,12 @@ const router = express.Router();
 // Controllers
 const adminController = require('app/controllers/admin/adminController');
 const categoryController = require('app/controllers/admin/categoryController');
+const brandController = require('app/controllers/admin/brandController');
+
+
+const upload = require('utils/uploadImage');
+const convertFileToField = require('utils/convertFileToField');
+
 
 
 
@@ -24,6 +30,14 @@ router.put('/categories/:id' , categoryController.update );
 router.delete('/categories/:id' , categoryController.destroy);
 
 
+
+// brands Routes
+router.get('/brands' , brandController.index);
+router.get('/brands/create' , brandController.create);
+router.post('/brands/store' ,upload.single('logo'),convertFileToField.handle, brandController.store );
+// router.get('/categories/:id/edit' , categoryController.edit);
+// router.put('/categories/:id' , categoryController.update );
+// router.delete('/categories/:id' , categoryController.destroy);
 
 
 
