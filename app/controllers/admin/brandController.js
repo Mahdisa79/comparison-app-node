@@ -1,5 +1,6 @@
 const controller = require('app/controllers/controller');
 const Brand = require("models/brand");
+const fs = require('fs');
 
 class brandController extends controller {
 
@@ -7,10 +8,13 @@ class brandController extends controller {
     async index(req , res) {
 
         try {
-            // let categories = await Category.find({});
+            let brands = await Brand.find({});
 
+            // console.log(brands[0].getImage('480'));
+            // Object.keys(firstObj)[0]
+            // console.log(brands[0].logo.path[480]);
+            res.render('admin/brands/index',  { pageTitle : 'برند ها' ,brands });
 
-            res.render('admin/brands/index',  { pageTitle : 'برند ها'  });
         } catch (err) {
             next(err);
         }
@@ -36,8 +40,6 @@ class brandController extends controller {
 
              // create brand
             logo.path= this.imageResize(req.file);
-
-            console.log(logo);
 
             await Brand.create({
                 persian_name,
@@ -162,14 +164,19 @@ class brandController extends controller {
       try {
           this.isMongoId(req.params.id);
 
-          let category = await Category.findById(req.params.id);
-          if( ! category ) this.error('چنین دسته ای وجود ندارد' , 404);
+          let brand = await Brand.findById(req.params.id);
+          if( ! brand ) this.error('چنین دسته ای وجود ندارد' , 404);
 
 
-          // delete category
-          await category.deleteOne();
+        // delete Images
+        Object.values(brand.logo.path).forEach(image => fs.unlinkSync(`./public${image}`));
 
-          return res.redirect('/admin/categories');
+
+
+          // delete brand
+          await brand.deleteOne();
+
+          return res.redirect('/admin/brands');
       } catch (err) {
           next(err);
       }

@@ -12,16 +12,12 @@ const getDirImage = () => {
 
 
 const ImageStorage = multer.diskStorage({
-    destination : (req , file , cb) => {
+    destination : (req , file , cb ) => {
         let dir = getDirImage();
         
-        console.log(dir);
 
         mkdirp(dir , (err) => cb(null , dir))
-        // console.log('hiiiii');
 
-        // fs.mkdirSync(dir, { recursive: true });
-        // console.log('hi');
 
     },
     filename : (req , file , cb) => {
@@ -32,12 +28,22 @@ const ImageStorage = multer.diskStorage({
         else{
             cb(null , Date.now() + '-' + file.originalname);
         }
-            
+
     }
 })
 
 const uploadImage = multer({
     
+    fileFilter (req, file, cb) {
+
+        if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" ){
+            cb(null, true)
+        }
+        else{
+            cb(null, false)
+        }
+      
+      },
 
     storage : ImageStorage,
     

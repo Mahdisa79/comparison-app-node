@@ -1,7 +1,6 @@
 class convertFileToField {
 
     handle(req , res , next) {
-        console.log(req.file ,req.body );
         if(! req.file) 
             req.body.image = undefined;
         else

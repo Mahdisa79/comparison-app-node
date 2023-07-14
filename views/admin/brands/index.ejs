@@ -64,14 +64,15 @@
 													<tbody>
 
                                                         
+														<% brands.forEach((brand, i) => { %> 
 
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>بنز</td>
-                                                            <td>bena</td>
+                                                            <td><% ++i %></td>
+                                                            <td><%= brand.persian_name %></td>
+                                                            <td><%= brand.original_name %></td>
 
-															<td> <img src="" alt="" width="100" height="50"> </td>
-                                                            <td>فعال</td>
+															<td> <img src="<%= brand.getImage('480') %>" alt="" width="100" height="50"> </td>
+                                                            <td><%= brand.status == 1 ? "فعال" : "غیر فعال"  %></td>
                                                             <td style="width: 200px">
 
 																<div class="d-flex justify-content-around">
@@ -82,7 +83,7 @@
                                                                 </a>
 															</div>
 															<div>
-																<form  action="{{route('admin.brands.destroy',['brand'=>$brand->id])}}" method="post">
+																<form  action="/admin/brands/<%= brand.id %>?_method=DELETE" method="post">
 															
 																	<button class="btn btn-danger fs-14 text-white delete" title="حذف" type="submit"><i class="fa fa-trash"></i></button>
 																
@@ -94,6 +95,7 @@
                                                             </td>
                                                         </tr>
                                                         
+														<% }) %>
 	
 													</tbody>
 												</table>

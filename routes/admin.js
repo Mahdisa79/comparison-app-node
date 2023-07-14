@@ -37,7 +37,7 @@ router.get('/brands/create' , brandController.create);
 router.post('/brands/store' ,upload.single('logo'),convertFileToField.handle, brandController.store );
 // router.get('/categories/:id/edit' , categoryController.edit);
 // router.put('/categories/:id' , categoryController.update );
-// router.delete('/categories/:id' , categoryController.destroy);
+router.delete('/brands/:id' , brandController.destroy);
 
 
 
