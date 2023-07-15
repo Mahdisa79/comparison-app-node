@@ -21,6 +21,7 @@ const ImageStorage = multer.diskStorage({
 
     },
     filename : (req , file , cb) => {
+        console.log('hi4');
         let filePath = getDirImage() + '/' + file.originalname;
         if(!fs.existsSync(filePath)){
             cb(null , file.originalname);
@@ -36,6 +37,11 @@ const uploadImage = multer({
     
     fileFilter (req, file, cb) {
 
+        if(req.query._method === 'put' && file === undefined) {
+            cb(null, false)
+        }
+        
+        
         if(file.mimetype == "image/jpeg" || file.mimetype == "image/png" ){
             cb(null, true)
         }
@@ -43,6 +49,7 @@ const uploadImage = multer({
             cb(null, false)
         }
       
+
       },
 
     storage : ImageStorage,

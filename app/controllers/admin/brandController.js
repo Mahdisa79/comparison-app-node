@@ -1,6 +1,7 @@
 const controller = require('app/controllers/controller');
 const Brand = require("models/brand");
 const fs = require('fs');
+const { log } = require('console');
 
 class brandController extends controller {
 
@@ -81,10 +82,11 @@ class brandController extends controller {
 
         this.isMongoId(req.params.id);
 
-        let category = await Category.findById(req.params.id);
-        if( ! category ) this.error('چنین دسته ای وجود ندارد' , 404);
+        let brand = await Brand.findById(req.params.id);
+
+        if( ! brand ) this.error('چنین دسته ای وجود ندارد' , 404);
         
-        res.render("admin/categories/edit",{pageTitle:"ساخت دسته بندی جدید",category})
+        res.render("admin/brands/edit",{pageTitle:"ویرایش برند",brand})
     
       } catch (err) {
       next(err);
@@ -94,42 +96,35 @@ class brandController extends controller {
   async update(req , res) {
     const errorArr = [];
     try {
+      const brand = await Brand.findById(req.params.id);
 
-      await Category.categoryValidation(req.body);
-      let { persian_name, original_name, slug ,status } = req.body;
-      slug = this.persianSlug(slug);
 
-      const category = await Category.findById(req.params.id);
-    
-      if(category.slug!=slug){
-      const oldCategory = await Category.findOne({slug});
-      if(oldCategory){
-        // err.inner.forEach((e) => {
-          errorArr.push({
-            name: "اسلاگ تکراری",
-            message: "اسلاگ تکراری وارد کرده اید",
-          });
-        // });
-    
-        this.alert(req, {
-          title: "خطا",
-          message: errorArr.message,
-          icon: "error",
-          button: "تایید",
-        });
-        req.flash("formData", req.body);
-    
-        this.back(req,res);
-        return;
+      if(req.query._method === 'put' && req.body.image === undefined) {
+        //dont upload new image
+        req.body.logo = brand.logo;
       }
+      else{
+        console.log(Object.values(brand.logo.path).length > 0);
+        // upload new image
+        if(Object.values(brand.logo.path).length > 0){
+          Object.values(brand.logo.path).forEach(image => fs.unlinkSync(`./public${image}`));          
+        }
+
+        req.body.logo = req.body.image;
+        req.body.logo.path= this.imageResize(req.file);
+      }
+
   
-      }
-      category.persian_name = persian_name;
-      category.original_name = original_name;
-      category.status = status;
-      category.slug = slug;
+      await Brand.brandValidation(req.body);
+      let { persian_name, original_name, logo ,status } = req.body;
 
-      await category.save();
+
+      brand.persian_name = persian_name;
+      brand.original_name = original_name;
+      brand.logo = logo;
+      brand.status = status;
+
+      await brand.save();
 
       this.alert(req, {
         title: "موفقیت آمیز",
@@ -138,7 +133,7 @@ class brandController extends controller {
         button: "تایید",
       });
   
-      res.redirect("/admin/categories");
+      res.redirect("/admin/brands");
     } catch (err) {
    
       err.inner.forEach((e) => {
@@ -171,10 +166,8 @@ class brandController extends controller {
         // delete Images
         Object.values(brand.logo.path).forEach(image => fs.unlinkSync(`./public${image}`));
 
-
-
-          // delete brand
-          await brand.deleteOne();
+        // delete brand
+        await brand.deleteOne();
 
           return res.redirect('/admin/brands');
       } catch (err) {

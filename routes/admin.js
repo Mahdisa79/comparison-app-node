@@ -35,8 +35,8 @@ router.delete('/categories/:id' , categoryController.destroy);
 router.get('/brands' , brandController.index);
 router.get('/brands/create' , brandController.create);
 router.post('/brands/store' ,upload.single('logo'),convertFileToField.handle, brandController.store );
-// router.get('/categories/:id/edit' , categoryController.edit);
-// router.put('/categories/:id' , categoryController.update );
+router.get('/brands/:id/edit' , brandController.edit);
+router.put('/brands/:id' ,upload.single('logo') , convertFileToField.handle, brandController.update );
 router.delete('/brands/:id' , brandController.destroy);
 
 

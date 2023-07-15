@@ -1,6 +1,5 @@
 const path = require('path');
 const autoBind = require('auto-bind');
-const { log } = require('console');
 // const moment = require('moment-jalaali');
 // moment.loadPersian({usePersianDigits: true})
 
@@ -8,6 +7,7 @@ module.exports = class Helpers {
     
     constructor(req , res) {
         autoBind(this);
+        // console.log(req.query._method);
         this.req = req;
         this.res = res;
         this.formData = req.flash('formData')[0];

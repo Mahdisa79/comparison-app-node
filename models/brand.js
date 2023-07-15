@@ -14,7 +14,8 @@ const brandSchema = Schema({
 
 brandSchema.plugin(mongoosePaginate);
 
-brandSchema.statics.brandValidation = function(body){
+
+brandSchema.statics.brandValidation = function(body,req){
 
     return brandSchemaValidation.validate(body,{abortEarly:false})
  }
