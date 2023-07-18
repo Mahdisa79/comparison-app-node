@@ -11,7 +11,7 @@ const categorySchema = Schema({
     status : { type: String , enum : [0,1] , default:1},
 
 
-} , { timestamps : true , toJSON : { virtuals : true } });
+} , { timestamps : true });
 
 categorySchema.plugin(mongoosePaginate);
 

@@ -10,7 +10,7 @@ const brandSchema = Schema({
     logo : { type : Schema.Types.Mixed},
     status : { type: String , enum : [0,1] , default:1},
 
-} , { timestamps : true , toJSON : { virtuals : true } });
+} , { timestamps : true  });
 
 brandSchema.plugin(mongoosePaginate);
 
@@ -40,4 +40,4 @@ brandSchema.statics.brandValidation = function(body,req){
     return path;
   };
 
-module.exports = mongoose.model('brands' , brandSchema);
+module.exports = mongoose.model('Brand' , brandSchema);
