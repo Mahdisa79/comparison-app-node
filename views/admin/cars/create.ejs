@@ -44,7 +44,7 @@
                       
                       <div class="form-group">
                         <label for="">نام خودرو</label>
-                        <input type="text" name="name" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="name" class="form-control mb-2" value="<%= old('name') %>"  placeholder="">
                       </div>
             
                      </div>
@@ -54,7 +54,7 @@
                           <label for="status">دسته بندی خودرو</label>
                           <select name="category" id="" class="form-control form-select sele mb-2" id="">
                             <% categories.forEach(category => { %> 
-                            <option value="<%= category._id %>"  > <%= category.persian_name %> </option>
+                            <option value="<%= category._id %>" <%= String(old('category')) == category._id? 'selected' : '' %>  > <%= category.persian_name %> </option>
                             <% }) %>
                           </select>
                       </div>
@@ -67,7 +67,7 @@
                         <select name="brand" id="" class="form-control form-select sele mb-2" id="">
 
                           <% brands.forEach(brand => { %> 
-                            <option value="<%= brand._id %>"  > <%= brand.persian_name %> </option>
+                            <option value="<%= brand._id %>" <%= String(old('brand')) == brand._id ? 'selected' : '' %>  > <%= brand.persian_name %> </option>
                             <% }) %>
                      
 
@@ -82,7 +82,7 @@
                       <div class="form-group">
                             <div class="form-group">
                                 <label for="image">تصویر</label>
-                                <input type="file" class="form-control file-input mb-2" name="image" id="logo">
+                                <input type="file" class="form-control file-input mb-2"  name="image" id="image">
                             </div>
      
                       </div>
@@ -93,7 +93,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">رنگ</label>
-                        <input type="text" name="color" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="color" class="form-control mb-2" value="<%= old('color') %>"  placeholder="">
   
                       </div>
                      </div>
@@ -101,7 +101,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">قدرت</label>
-                        <input type="text" name="power" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="power" class="form-control mb-2" value="<%= old('power') %>"  placeholder="">
         
                       </div>
                      </div>
@@ -109,7 +109,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">قیمت</label>
-                        <input type="text" name="price_us" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="price_us" class="form-control mb-2" value="<%= old('price_us') %>"  placeholder="">
 
                       </div>
                      </div>
@@ -117,7 +117,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">کشور سازنده</label>
-                        <input type="text" name="country" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="country" class="form-control mb-2" value="<%= old('country') %>"  placeholder="">
      
                       </div>
                      </div>
@@ -125,7 +125,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">حداکثر سرعت</label>
-                        <input type="text" name="maxspeed" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="maxspeed" class="form-control mb-2" value="<%= old('maxspeed') %>"  placeholder="">
          
                       </div>
                      </div>
@@ -134,7 +134,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">میزان امنیت</label>
-                        <input type="text" name="safety_class" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="safety_class" class="form-control mb-2" value="<%= old('safety_class') %>" placeholder="">
      
                       </div>
                      </div>
@@ -142,7 +142,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">میزان مصرف سوخت</label>
-                        <input type="text" name="fuel_consumption" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="fuel_consumption" class="form-control mb-2" value="<%= old('fuel_consumption') %>"  placeholder="">
     
                       </div>
                      </div>
@@ -150,7 +150,7 @@
                      <div class="col-md-6">
                       <div class="form-group">
                         <label for="">شتاب</label>
-                        <input type="text" name="acceleration" class="form-control mb-2" value=""  placeholder="">
+                        <input type="text" name="acceleration" class="form-control mb-2" value="<%= old('acceleration') %>"  placeholder="">
        
                       </div>
                      </div>
@@ -160,8 +160,8 @@
                       <div class="form-group">
                           <label for="status">وضعیت</label>
                           <select name="status" id="" class="form-control form-select mb-2" id="status">
-                              <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                              <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                              <option value="0" <%= String(old('status')) == "0" ? 'selected' : '' %>>غیرفعال</option>
+                              <option value="1" <%= String(old('status')) == "1" ? 'selected' : '' %>>فعال</option>
                           </select>
                       </div>
  

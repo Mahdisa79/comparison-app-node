@@ -48,13 +48,9 @@ class carController extends controller {
         const errorArr = [];
 
         try {
-          console.log(req.body);
 
           let { name, category, brand ,image,color,power,price_us,country,maxspeed,safety_class,fuel_consumption,acceleration,status } = req.body;
             
-
-          
-
           await Car.carValidation(req.body);
           // create brand
           image.path= this.imageResize(req.file);            
@@ -82,13 +78,11 @@ class carController extends controller {
                 });
               });
           
-
             req.flash("formData", req.body);          
             req.flash('errors',errorArr);
-
             this.back(req,res)
-       
-        }
+        
+          }
     }
 
     async edit(req , res) {
