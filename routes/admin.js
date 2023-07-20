@@ -45,9 +45,9 @@ router.delete('/brands/:id' , brandController.destroy);
 router.get('/cars' , carController.index);
 router.get('/cars/create' , carController.create);
 router.post('/cars/store' ,upload.single('image'),convertFileToField.handle, carController.store );
-// router.get('/brands/:id/edit' , brandController.edit);
-// router.put('/brands/:id' ,upload.single('logo') , convertFileToField.handle, brandController.update );
-// router.delete('/brands/:id' , brandController.destroy);
+router.get('/cars/:id/edit' , carController.edit);
+router.put('/cars/:id' ,upload.single('image') , convertFileToField.handle, carController.update );
+router.delete('/cars/:id' , carController.destroy);
 
 
 

@@ -2,7 +2,7 @@
 
  <%- contentFor('body') %>
 
-      <!--app-content open-->
+			<!--app-content open-->
 			<div class="app-content main-content mt-0">
 				<div class="side-app">
 					 <!-- CONTAINER -->
@@ -10,11 +10,11 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">برند ها</h1>
+								<h1 class="page-title">خودرو ها</h1>
 							</div>
 							<div class="ms-auto pageheader-btn">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="javascript:void(0);">برند ها</a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0);">خودرو ها</a></li>
 									<li class="breadcrumb-item active" aria-current="page">صفحات</li>
 								</ol>
 							</div>
@@ -26,12 +26,13 @@
               <div class="col-md-12">
           
               <div class="card ">
+    
                   <div class="card-header border-bottom">
-                    <h3 class="card-title">ساخت برند</h3>
+                    <h3 class="card-title">ساخت خودرو جدید</h3>
                   </div>
                   <!-- /.card-header -->
                   <!-- form start -->
-                  <form   method="post" action="/admin/brands/<%= brand.id %>?_method=put" enctype="multipart/form-data">
+                  <form   method="post" action="/admin/cars/<%= car.id %>?_method=put" enctype="multipart/form-data">
 
                     <%- include(viewPath('admin/layouts/error-messages')) -%>
 
@@ -41,56 +42,137 @@
                       <div class="col-md-6">
                       
                       <div class="form-group">
-                        <label for="">نام برند (فارسی)</label>
-                        <input type="text" name="persian_name" class="form-control mb-2" value="<%= old('persian_name',brand.persian_name) %>"  placeholder="">
-                      
+                        <label for="">نام خودرو</label>
+                        <input type="text" name="name" class="form-control mb-2" value="<%= old('name',car.name) %>"  placeholder="">
                       </div>
             
                      </div>
 
-                     <div class="col-md-6">
-                      
+                     <section class="col-md-6 ">
                       <div class="form-group">
-                        <label for="">نام برند(اینگلیسی)</label>
-                        <input type="text" name="original_name" class="form-control mb-2" value="<%= old('original_name',brand.original_name) %>"   placeholder="">
-                      
-
+                          <label for="status">دسته بندی خودرو</label>
+                          <select name="category" id="" class="form-control form-select sele mb-2" id="">
+                            <% categories.forEach(category => { %> 
+                            <option value="<%= category._id %>" <%= String(old('category',car.category)) == category._id? 'selected' : '' %>  > <%= category.persian_name %> </option>
+                            <% }) %>
+                          </select>
                       </div>
-            
-                     </div>
+
+                  </section>
+
+                  <section class="col-md-6 ">
+                    <div class="form-group">
+                        <label for="status">برند خودرو</label>
+                        <select name="brand" id="" class="form-control form-select sele mb-2" id="">
+
+                          <% brands.forEach(brand => { %> 
+                            <option value="<%= brand._id %>" <%= String(old('brand',car.brand)) == brand._id ? 'selected' : '' %>  > <%= brand.persian_name %> </option>
+                            <% }) %>
+                     
+
+                        </select>
+                    </div>
+
+                </section>
+
 
                      <div class="col-md-6">
                       
                       <div class="form-group">
                             <div class="form-group">
-                                <label for="logo">تصویر</label>
-                                <!-- <input type="file" class="form-control file-input mb-2" name="logo" id="logo"> -->
-                                <!-- <input type="file" name="logo" class="dropify" data-default-file="{{ asset($brand->logo['indexArray']['medium'] ) }}" data-height="200"  /> -->
-                                <input type="file" name="logo"  id="logo"  class="dropify" data-default-file="<%= brand.getImage('480') %>" data-height="200"  />
+                                <label for="image">تصویر</label>
+                                <input type="file" name="image"  id="image"  class="dropify" data-default-file="<%= car.getImage('480') %>" data-height="200"  />
 
-                            </div>
+                              </div>
+     
                       </div>
             
                      </div>
 
+                     
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">رنگ</label>
+                        <input type="text" name="color" class="form-control mb-2" value="<%= old('color',car.color) %>"  placeholder="">
+  
+                      </div>
+                     </div>
 
-                     <section class="col-md-6 ">
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">قدرت</label>
+                        <input type="text" name="power" class="form-control mb-2" value="<%= old('power',car.power) %>"  placeholder="">
+        
+                      </div>
+                     </div>
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">قیمت</label>
+                        <input type="text" name="price_us" class="form-control mb-2" value="<%= old('price_us',car.price_us) %>"  placeholder="">
+
+                      </div>
+                     </div>
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">کشور سازنده</label>
+                        <input type="text" name="country" class="form-control mb-2" value="<%= old('country',car.country) %>"  placeholder="">
+     
+                      </div>
+                     </div>
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">حداکثر سرعت</label>
+                        <input type="text" name="maxspeed" class="form-control mb-2" value="<%= old('maxspeed',car.maxspeed) %>"  placeholder="">
+         
+                      </div>
+                     </div>
+
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">میزان امنیت</label>
+                        <input type="text" name="safety_class" class="form-control mb-2" value="<%= old('safety_class',car.safety_class) %>" placeholder="">
+     
+                      </div>
+                     </div>
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">میزان مصرف سوخت</label>
+                        <input type="text" name="fuel_consumption" class="form-control mb-2" value="<%= old('fuel_consumption',car.fuel_consumption) %>"  placeholder="">
+    
+                      </div>
+                     </div>
+
+                     <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="">شتاب</label>
+                        <input type="text" name="acceleration" class="form-control mb-2" value="<%= old('acceleration',car.acceleration) %>"  placeholder="">
+       
+                      </div>
+                     </div>
+
+
+                     <div class="col-md-6 ">
                       <div class="form-group">
                           <label for="status">وضعیت</label>
                           <select name="status" id="" class="form-control form-select mb-2" id="status">
-                              <option value="0" <%= String(old('status',brand.status)) == "0" ? 'selected' : '' %>  >غیرفعال</option>
-                              <option value="1" <%= String(old('status',brand.status)) == "1" ? 'selected' : '' %> >فعال</option>
+                              <option value="0" <%= String(old('status',car.status)) == "0" ? 'selected' : '' %>>غیرفعال</option>
+                              <option value="1" <%= String(old('status',car.status)) == "1" ? 'selected' : '' %>>فعال</option>
                           </select>
                       </div>
+ 
 
-
-                    </section>
+                  </div>
                                
           
                     </div>
           
                     <div class="d-flex justify-content-center ">
-                      <button type="submit" class="btn btn-primary col-md-4 edit" > ویرایش برند</button>
+                      <button type="submit" class="btn btn-primary col-md-4 edit" >ایجاد خودرو جدید</button>
                     </div>
           
           

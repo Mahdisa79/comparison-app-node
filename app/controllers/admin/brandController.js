@@ -169,7 +169,7 @@ class brandController extends controller {
         // delete brand
         await brand.deleteOne();
 
-          return res.redirect('/admin/brands');
+        return res.redirect('/admin/brands');
       } catch (err) {
           next(err);
       }

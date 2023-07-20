@@ -74,7 +74,8 @@
 													</thead>
 													<tbody>
 
-													   <% cars.forEach((car, i) => { %> 
+													   <% if(cars.length > 0){
+														cars.forEach((car, i) => { %> 
 
 														
                                                         <tr>
@@ -105,7 +106,7 @@
                                                                 </a>
 															</div>
 															<div>
-																<form  action="{{route('admin.cars.destroy',['car'=>$car->id])}}" method="post">
+																<form  action="/admin/cars/<%=car.id %>?_method=DELETE" method="post">
 																
 																	<button class="btn btn-danger fs-14 text-white delete" title="حذف" type="submit"><i class="fa fa-trash"></i></button>
 																
@@ -117,7 +118,7 @@
                                                             </td>
                                                         </tr>
                                                       
-														<% }) %>
+														<% })  }%>
 	
 													</tbody>
 												</table>

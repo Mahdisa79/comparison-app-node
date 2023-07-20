@@ -62,7 +62,8 @@
 													</thead>
 													<tbody>
 
-														<% categories.forEach((category, i) => { %> 
+														<% if(categories.length > 0){
+														categories.forEach((category, i) => { %> 
 														
                                                         <tr>
                                                             <td><%= ++i %></td> 
@@ -90,7 +91,7 @@
 
                                                             </td>
                                                         </tr>
-														<% }) %>
+														<% }) }%>
 
 	
 													</tbody>

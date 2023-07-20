@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
 
 const controller = require('app/controllers/controller');
 
@@ -26,7 +27,6 @@ class carController extends controller {
                 select : 'persian_name'
               }
           ]);
-            console.log(cars[0].category.persian_name)
             res.render('admin/cars/index',  { pageTitle : 'خودرو ها' ,cars });
         } catch (err) {
             next(err);
@@ -87,13 +87,16 @@ class carController extends controller {
 
     async edit(req , res) {
       try{
+        let brands = await Brand.find({});
+        let categories = await Category.find({});
+          
 
         this.isMongoId(req.params.id);
 
-        let category = await Category.findById(req.params.id);
-        if( ! category ) this.error('چنین دسته ای وجود ندارد' , 404);
+        let car = await Car.findById(req.params.id);
+        if( ! car ) this.error('چنین دسته ای وجود ندارد' , 404);
         
-        res.render("admin/categories/edit",{pageTitle:"ساخت دسته بندی جدید",category})
+        res.render("admin/cars/edit",{pageTitle:"ساخت دسته بندی جدید",car,brands,categories})
     
       } catch (err) {
       next(err);
@@ -101,44 +104,47 @@ class carController extends controller {
   }
 
   async update(req , res) {
+   
     const errorArr = [];
+
     try {
+      const car = await Car.findById(req.params.id);
 
-      await Category.categoryValidation(req.body);
-      let { persian_name, original_name, slug ,status } = req.body;
-      slug = this.persianSlug(slug);
-
-      const category = await Category.findById(req.params.id);
-    
-      if(category.slug!=slug){
-      const oldCategory = await Category.findOne({slug});
-      if(oldCategory){
-        // err.inner.forEach((e) => {
-          errorArr.push({
-            name: "اسلاگ تکراری",
-            message: "اسلاگ تکراری وارد کرده اید",
-          });
-        // });
-    
-        this.alert(req, {
-          title: "خطا",
-          message: errorArr.message,
-          icon: "error",
-          button: "تایید",
-        });
-        req.flash("formData", req.body);
-    
-        this.back(req,res);
-        return;
+      if(req.query._method === 'put' && req.body.image === undefined) {
+        //dont upload new image
+        req.body.image = car.image;
       }
-  
-      }
-      category.persian_name = persian_name;
-      category.original_name = original_name;
-      category.status = status;
-      category.slug = slug;
+      else{
+        // upload new image
+        if(Object.values(car.image.path).length > 0){
+          Object.values(car.image.path).forEach(image => fs.unlinkSync(`./public${image}`));          
+        }
 
-      await category.save();
+        req.body.image = req.body.image;
+        req.body.image.path= this.imageResize(req.file);
+      }
+
+      await Car.carValidation(req.body);
+      let { name, category, brand ,image,color,power,price_us,country,maxspeed,safety_class,fuel_consumption,acceleration,status } = req.body;
+
+
+      car.name = name;
+      car.category = category;
+      car.brand = brand;
+      car.image = image;
+      car.color = color;
+      car.power = power;
+      car.price_us = price_us;
+      car.country = country;
+      car.maxspeed = maxspeed;
+      car.safety_class = safety_class;
+      car.fuel_consumption = fuel_consumption;
+      car.acceleration = acceleration;
+      car.status = status;
+
+
+
+      await car.save();
 
       this.alert(req, {
         title: "موفقیت آمیز",
@@ -147,7 +153,9 @@ class carController extends controller {
         button: "تایید",
       });
   
-      res.redirect("/admin/categories");
+      res.redirect("/admin/cars");
+      
+  
     } catch (err) {
    
       err.inner.forEach((e) => {
@@ -171,16 +179,19 @@ class carController extends controller {
 
     async destroy(req , res , next) {
       try {
-          this.isMongoId(req.params.id);
+        this.isMongoId(req.params.id);
 
-          let category = await Category.findById(req.params.id);
-          if( ! category ) this.error('چنین دسته ای وجود ندارد' , 404);
+        let car = await Car.findById(req.params.id);
+        if( ! car ) this.error('چنین دسته ای وجود ندارد' , 404);
 
 
-          // delete category
-          await category.deleteOne();
+      // delete Images
+      Object.values(car.image.path).forEach(image => fs.unlinkSync(`./public${image}`));
 
-          return res.redirect('/admin/categories');
+      // delete car
+      await car.deleteOne();
+
+      return res.redirect('/admin/cars');
       } catch (err) {
           next(err);
       }

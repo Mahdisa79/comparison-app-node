@@ -64,7 +64,8 @@
 													<tbody>
 
                                                         
-														<% brands.forEach((brand, i) => { %> 
+														<% if(brands.length > 0){
+														brands.forEach((brand, i) => { %> 
 
                                                         <tr>
                                                             <td><% ++i %></td>
@@ -95,7 +96,7 @@
                                                             </td>
                                                         </tr>
                                                         
-														<% }) %>
+														<% }) } %>
 	
 													</tbody>
 												</table>
