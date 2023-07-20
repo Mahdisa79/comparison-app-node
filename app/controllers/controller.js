@@ -2,12 +2,27 @@ const autoBind = require('auto-bind');
 const isMongoId = require('validator/lib/isMongoId');
 const path = require('path');
 const sharp = require('sharp');
+var svgCaptcha = require('svg-captcha');
 
 module.exports = class controller {
 
     constructor() {
         autoBind(this);
         // console.log('main controller');
+
+    }
+
+    createCapcha(req , res) {
+
+        var captcha = svgCaptcha.create({
+            charPreset:"123456789",
+            width:250,
+            size:5,
+            color: true,
+            noise: 2
+         });
+
+         return captcha;
 
     }
 

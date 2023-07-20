@@ -1,0 +1,65 @@
+<%- contentFor('headtag') %>
+<title><%= title %></title>
+<%- contentFor('body') %>
+
+				    <!-- CONTAINER OPEN -->
+					<div class="col col-login mx-auto text-center">
+						<a href="/admin" class="text-center">
+							<img src="/admin-assets/assets/images/brand/logo.png" class="header-brand-img" alt="">
+						</a>
+					</div>
+					<div class="container-login100">
+						<div class="wrap-login100 p-0">
+							<div class="card-body">
+								<form class="login100-form validate-form" method="post" action="/login" >
+
+
+									<span class="login100-form-title">
+										ورود
+									</span>
+									<div class="wrap-input100 validate-input" >
+										<input class="input100 form-control" type="text" name="email" placeholder="ایمیل یا نام کاربری">
+										<span class="focus-input100"></span>
+										<span class="symbol-input100">
+											<i class="zmdi zmdi-email" aria-hidden="true"></i>
+										</span>
+									</div>
+									<div class="wrap-input100 validate-input">
+										<input class="input100 form-control" type="password" name="password" placeholder="رمز عبور">
+										<span class="focus-input100"></span>
+										<span class="symbol-input100">
+											<i class="zmdi zmdi-lock" aria-hidden="true"></i>
+										</span>
+									</div>
+
+                                    <div class="wrap-input100 validate-input">
+                                        <!-- <img src="" style="width: 100%" alt="captcha" class="mb-2"> -->
+                                        <%- showCap %>
+                                        
+                                        <input name="captcha" type="text" class="input100 form-control p-2" placeholder="کد تصویر امنیتی">
+                                    </div>
+                
+									<div class="text-start pt-1">
+										<p class="mb-0"><a href="#" class="text-primary ms-1">رمز عبور خود را فراموش کرده اید؟</a></p>
+									</div>
+									<div class="container-login100-form-btn">
+                                            <button type="submit" class="login100-form-btn btn-primary ">
+                                            ورود
+                                            </button>
+									</div>
+									<div class="text-center pt-3">
+										<p class="text-dark mb-0">ثبت نام نکرده اید؟<a href="{{ route('auth.register') }}" class="text-primary ms-1">ثبت نام</a></p>
+									</div>
+								</form>
+							</div>
+                            <div class="card-footer">
+                            <%- include(viewPath('admin/layouts/error-messages')) -%>
+                            </div>
+
+
+						</div>
+					</div>
+					<!-- CONTAINER CLOSED -->
+
+
+<%- contentFor('script') %>
