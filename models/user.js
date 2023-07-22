@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const {userLoginSchemaValidation} = require('./validation/loginValidation');
+const {userRegisterSchemaValidation} = require('./validation/registerValidation');
+
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -20,6 +24,22 @@ const userSchema = new mongoose.Schema({
     maxlength: 256,
   }
 },{timestamps:true});
+
+userSchema.statics.loginValidation = function(body,req){
+
+  return userLoginSchemaValidation.validate(body,{abortEarly:false})
+}
+
+userSchema.statics.registerValidation = function(body,req){
+
+  return userRegisterSchemaValidation.validate(body,{abortEarly:false})
+}
+
+// userSchema.methods.comparePassword = function(password) {
+//   return bcrypt.compareSync(password , this.password);
+// }
+
+
 
 
 

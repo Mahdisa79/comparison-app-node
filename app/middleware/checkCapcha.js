@@ -12,15 +12,18 @@ class checkCapcha extends middleware {
         if(userCap == currCCap){
             console.log("ok !");
             next();
+            
         }
-        
-        errorArr.push({
-            name: "capcha",
-            message: "در وارد کردن کد دقت کنید",
-          });
+        else{
+            errorArr.push({
+                name: "capcha",
+                message: "در وارد کردن کد دقت کنید",
+              });
+    
+            req.flash('errors',errorArr);
+            res.redirect("/login");
+        }
 
-        req.flash('errors',errorArr);
-        res.redirect("/login");
     }
 
 

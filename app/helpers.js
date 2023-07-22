@@ -15,7 +15,7 @@ module.exports = class Helpers {
 
     getObjects() {        
         return {
-            // auth : this.auth(),
+            auth : this.auth(),
             viewPath : this.viewPath,
             ...this.getGlobalVaribales(),
             old : this.old,
@@ -24,12 +24,12 @@ module.exports = class Helpers {
         }
     }
 
-    // auth() {
-    //     return {
-    //         check : this.req.isAuthenticated(),
-    //         user : this.req.user
-    //     }
-    // }
+    auth() {
+        return {
+            check : this.req.isAuthenticated(),
+            user : this.req.user
+        }
+    }
 
     viewPath(dir) {
         return path.resolve(path.resolve('./views') + '/' + dir);
