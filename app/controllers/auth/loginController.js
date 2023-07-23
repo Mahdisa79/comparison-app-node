@@ -48,7 +48,7 @@ class loginController extends controller {
             console.log(err,user);
             if(!user) return res.redirect('/login');
 
-            console.log('hi2');
+            // console.log('hi2');
 
             // if(! user.active ) {
             //     // create activationCode
@@ -106,16 +106,15 @@ class loginController extends controller {
 
 
             req.logIn(user , err => {
-                // if(req.body.remember) {
-                //     user.setRememberToken(res);
-                // }
-                console.log('hi4');
 
+                if(req.body.remember) {
+                    user.setRememberToken(res);
+                }
+                
 
                 return res.redirect('/admin');
             })
 
-            console.log('hi3');
 
 
         })(req, res , next);
