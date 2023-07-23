@@ -45,7 +45,6 @@ class loginController extends controller {
 
     async login(req ,res , next) {
         passport.authenticate('local.login' ,async (err , user) => {
-            console.log(err,user);
             if(!user) return res.redirect('/login');
 
             // console.log('hi2');

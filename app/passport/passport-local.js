@@ -24,19 +24,8 @@ passport.use('local.register' , new localStrategy({
 } , (req , email ,  password , done) => {
     User.findOne({ 'email' : email }).then( async function (user) {
         // if(err) return done(err);
-        if(user) return done(null , false , req.flash('errors' , 'چنین کاربری قبلا در سایت ثبت نام کرده است'));
+        if(user) return done(null , false , req.flash('errors' , { message :'چنین کاربری قبلا در سایت ثبت نام کرده است'}));
         
-        // const newUser = new User({
-        //     name : req.body.name,
-        //     username : req.body.username,
-        //     email,
-        //     password
-        // });
-
-        // newUser.save(err => {
-        //     if(err) return done(err , false , req.flash('errors' , 'ثبت نام با موفقیت انجام نشد لطفا دوباره سعی کنید'));
-        //     done(null , newUser);
-        // })
 
         const newUser = await User.create({
             name : req.body.name,
@@ -57,14 +46,14 @@ passport.use('local.login' , new localStrategy({
     passwordField : 'password',
     passReqToCallback : true
 } , (req , email ,  password , done) => {
-    console.log('hi1');
 
     User.findOne({ 'email' : email }).then( async function (user,err) {
         // console.log(err,user);
         if(err) return done(err);
 
-        if(! user || ! user.password == password) {
-            return done(null , false , req.flash('errors' , 'اطلاعات وارد شده مطابقت ندارد'));
+        if(! user || ! user.comparePassword(password)) {
+                
+            return done(null , false , req.flash('errors' , { message : 'اطلاعات وارد شده مطابقت ندارد'}));
         }
 
         console.log('hi12');

@@ -4,6 +4,8 @@ const expressEjsLayouts = require("express-ejs-layouts");
 const http = require('http');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
+const rememberLogin = require('app/middleware/rememberLogin');
+
 const passport = require('passport');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -48,6 +50,7 @@ module.exports = class Application {
 
         app.use(passport.initialize());
         app.use(passport.session());
+        app.use(rememberLogin.handle);
         
 
         app.use((req , res , next) => {
