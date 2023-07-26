@@ -84,6 +84,8 @@ module.exports = class Application {
     setRouters(){
         app.use('/admin',require('routes/admin'));
         app.use(require('routes/auth'));
+        app.use(require('routes/home'));
+
 
     }
 

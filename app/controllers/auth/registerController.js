@@ -15,7 +15,7 @@ class registerController extends controller {
             // console.log(req.session);
 
 
-            const title = 'صفحه ورود';
+            const title  =  'ثبت نام کاربر';
             res.render('auth/register' , { title,showCap:captcha.data });
     }
 
