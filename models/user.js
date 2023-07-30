@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   
   rememberToken : { type : String , default : null },
 
-},{timestamps:true});
+},{timestamps:true,toJSON : { virtuals : true }});
 
 
 userSchema.pre('save' , function(next) {
@@ -68,6 +68,12 @@ userSchema.methods.setRememberToken =  async function(res) {
   await this.updateOne({ rememberToken : token });
 
 }
+
+userSchema.virtual('cars' , {
+  ref : 'Compare',
+  localField : '_id',
+  foreignField : 'user'
+})
 
 
 

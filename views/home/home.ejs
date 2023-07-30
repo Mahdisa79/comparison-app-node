@@ -80,7 +80,7 @@
                                                         <div class="button-group cartinfo--static">
                                                             
                                                             <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('60');"><i class="fa fa-heart"></i></button>
-                                                            <button type="button" car-id = "{{$car->id}}" class="addToCart addToCompare" title="Add to cart">
+                                                            <button type="button" car-id = "<%=car.id  %>" class="addToCart addToCompare" title="Add to cart">
                                                                 <span>افزودن به لیست مقایسه</span>   
                                                             </button>
                                                             <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('60');"><i class="fa fa-refresh"></i></button>                                                    
@@ -930,17 +930,10 @@ function successToast(message){
 
     var id = $(this).attr('car-id');
 
-
-    // console.log(id);
-
-
-
-    $.ajax({
+    $.ajax({                
             url : '/add-to-compare-list/'+id,
             type : "GET",
             success : function(response){
-
-                console.log(response);
                 if(response==1){
                     successToast('محصول با موفقیت به سبد خرید اضافه شد')
                 }

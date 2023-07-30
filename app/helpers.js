@@ -1,5 +1,8 @@
 const path = require('path');
 const autoBind = require('auto-bind');
+const User = require("models/user");
+
+
 // const moment = require('moment-jalaali');
 // moment.loadPersian({usePersianDigits: true})
 
@@ -19,6 +22,8 @@ module.exports = class Helpers {
             viewPath : this.viewPath,
             ...this.getGlobalVaribales(),
             old : this.old,
+            getCarCount : this.getCarCount,
+
             // date : this.date,
             req : this.req
         }
@@ -40,6 +45,39 @@ module.exports = class Helpers {
             errors : this.req.flash('errors')
         }
     }
+
+    // async getCarCount(id){
+
+    // getCarCount =  function (id) {
+    //     // return 5;
+    //     // async function {
+    //     ((async (id) => {
+        
+
+    //     let user =  await User.findById(id).populate([
+    //         {
+                
+    //             path : 'cars',
+    //             options : { sort : { number : 1} },    
+    //             populate : [
+    //                 {
+    //                     path : 'car',
+    //                 }, 
+    //             ]
+    //         }
+    //     ]); 
+
+    //     // return 5;
+    //     })())
+
+    //     return 5;
+    // // }
+
+    //     // return id;
+    //     // resolve(id) //
+    //     // return user.email;
+
+    // }
 
     old(field , defaultValue = '') {
         return this.formData && this.formData.hasOwnProperty(field) ? this.formData[field] : defaultValue;

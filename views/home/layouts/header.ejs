@@ -46,9 +46,9 @@
                         </ul>
                         <ul class="top-log list-inline"> 
                             <% if(auth.check) { %>
-                            <li><i class="fa fa-user"></i>{{Auth::user()->name}} / </li><li><a href="{{route('auth.logout')}}">خروج</a></li>
+                            <li><i class="fa fa-user"></i><%= auth.user.name  %> / </li><li><a href="/logout">خروج</a></li>
                             <% } else{ %>   
-                            <li><i class="fa fa-lock"></i><a href="{{route('auth.login-form')}}">ورود</a> / </li><li><a href="{{route('auth.register')}}">ثبت نام</a></li>
+                            <li><i class="fa fa-lock"></i><a href="/login">ورود</a> / </li><li><a href="/register">ثبت نام</a></li>
                             <% } %>
 
                         </ul>
@@ -446,7 +446,7 @@
                 </div>
                 <div class="shopping_cart">
                     <div id="cart" class="btn-shopping-cart">
-                        <a href="{{route('customer.compareList')}}"  class="btn-group top_cart dropdown-toggle" >
+                        <a href="/compare-list"  class="btn-group top_cart dropdown-toggle" >
                             <div class="shopcart">
                                 <span class="icon-c">
                                     <i class="fa fa-balance-scale"></i>
@@ -456,7 +456,7 @@
                                         مقایسه
                                     </p>
                                     <span class="total-shopping-cart cart-total-full">
-                                    <span class="items_cart"></span><span class="items_cart2">   تعداد محصولات <%= auth.check ? "1" : "0"  %></span><span class="items_carts">$162.00</span>
+                                    <span class="items_cart"></span><span class="items_cart2">   تعداد محصولات <%= auth.check ? "!" : "0"  %></span><span class="items_carts">$162.00</span>
                                     </span>
                                 </div>
                             </div>
